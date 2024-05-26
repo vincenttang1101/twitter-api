@@ -1,6 +1,6 @@
-import { DatabaseService } from '@/services/database.services'
+import { DatabaseServices } from '@/services/database.service'
 
-class UsersService extends DatabaseService {
+class UsersServices extends DatabaseServices {
   async register(payload: { email: string; password: string }) {
     const { email, password } = payload
 
@@ -13,6 +13,6 @@ class UsersService extends DatabaseService {
   }
 }
 
-const usersService = new UsersService()
+const usersServices = new UsersServices()
 
-export default usersService
+export default usersServices

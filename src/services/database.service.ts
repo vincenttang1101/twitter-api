@@ -6,7 +6,7 @@ import User from '@/models/schemas/user.schema'
 const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
 dotenv.config({ path: envFile })
 
-export class DatabaseService {
+export class DatabaseServices {
   async connect() {
     try {
       await mongoose.connect(
@@ -24,6 +24,6 @@ export class DatabaseService {
   }
 }
 
-const databaseService = new DatabaseService()
+const databaseServices = new DatabaseServices()
 
-export default databaseService
+export default databaseServices

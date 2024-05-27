@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import usersRouter from '@/routes/users.routes'
+import usersRouter from '@/routes/users.route'
 
 const router = Router()
 router.use('/users', usersRouter)

@@ -1,6 +1,4 @@
-import mongoose from 'mongoose'
 import express from 'express'
-import usersRouter from '@/routes/users.routes'
 import router from '@/routes'
 import databaseService from '@/services/database.service'
 

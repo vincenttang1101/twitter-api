@@ -1,6 +1,6 @@
 import { DatabaseServices } from '@/services/database.service'
 
-class UsersServices extends DatabaseServices {
+class UsersService extends DatabaseServices {
   async register(payload: { email: string; password: string }) {
     const { email, password } = payload
 
@@ -11,8 +11,13 @@ class UsersServices extends DatabaseServices {
 
     return result
   }
+
+  async checkEmailExists(email: string) {
+    const user = await this.users.findOne({ email })
+    return Boolean(user)
+  }
 }
 
-const usersServices = new UsersServices()
+const usersService = new UsersService()
 
-export default usersServices
+export default usersService

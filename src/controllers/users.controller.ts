@@ -1,4 +1,4 @@
-import usersServices from '@/services/users.services'
+import usersService from '@/services/users.service'
 import { NextFunction, Request, Response } from 'express'
 
 export class UsersController {
@@ -20,7 +20,7 @@ export class UsersController {
     const { email, password } = request.body
 
     try {
-      usersServices.register({
+      usersService.register({
         email,
         password
       })

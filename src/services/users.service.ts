@@ -1,14 +1,14 @@
 import { DatabaseServices } from '@/services/database.service'
+import { RegisterReqBody } from '@/types/users.type'
+import { hash, compare } from 'bcrypt'
 
 class UsersService extends DatabaseServices {
-  async register(payload: { email: string; password: string }) {
-    const { email, password } = payload
-
+  async register(payload: RegisterReqBody) {
+    const hashedPassword = await hash(payload.password + process.env.PASSWORD_HASH_SECRET, 2)
     const result = this.users.create({
-      email,
-      password
+      ...payload,
+      password: hashedPassword
     })
-
     return result
   }
 

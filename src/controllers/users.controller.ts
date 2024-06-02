@@ -21,7 +21,7 @@ export class UsersController {
   async register(req: Request<ParamsDictionary, any, RegisterReqBody>, res: Response, next: NextFunction) {
     try {
       const { email, password, confirm_password, name, date_of_birth } = req.body
-      usersService.register({
+      const user = await usersService.register({
         email,
         password,
         confirm_password,
@@ -30,6 +30,7 @@ export class UsersController {
       })
 
       return res.status(200).json({
+        data: user,
         success: true
       })
     } catch (error) {

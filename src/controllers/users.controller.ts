@@ -9,35 +9,23 @@ export class UsersController {
 
     if (email === 'a' && password === 'b') {
       return res.json({
-        succes: true
+        success: true
       })
     }
 
     return res.status(400).json({
-      succes: false
+      success: false
     })
   }
 
-  async register(req: Request<ParamsDictionary, any, RegisterReqBody>, res: Response, next: NextFunction) {
-    try {
-      const { email, password, confirm_password, name, date_of_birth } = req.body
-      const user = await usersService.register({
-        email,
-        password,
-        confirm_password,
-        name,
-        date_of_birth
-      })
+  register(req: Request<ParamsDictionary, any, RegisterReqBody>, res: Response, next: NextFunction) {
+    throw new Error('lỗi rồi')
+    // const user = await usersService.register(req.body)
 
-      return res.status(200).json({
-        data: user,
-        success: true
-      })
-    } catch (error) {
-      return res.status(400).json({
-        success: false
-      })
-    }
+    // return res.status(200).json({
+    //   data: user,
+    //   success: true
+    // })
   }
 }
 

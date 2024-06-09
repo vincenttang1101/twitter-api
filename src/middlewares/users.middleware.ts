@@ -1,4 +1,6 @@
 import usersServices from '@/services/users.service'
+import { HttpStatusCode } from '@/utils/constants/http'
+import { ErrorWithStatus } from '@/utils/helpers/error'
 import { validate } from '@/utils/helpers/validation'
 import { NextFunction, Request, Response } from 'express'
 import { checkSchema } from 'express-validator'
@@ -24,7 +26,7 @@ export const registerValidator = validate(
         options: async (value) => {
           const isEmailExists = await usersServices.checkEmailExists(value)
           if (isEmailExists) {
-            throw new Error('Email already exists')
+            throw new ErrorWithStatus({ message: 'Email already exists', status: HttpStatusCode.BAD_REQUEST })
           }
           return isEmailExists
         }
@@ -73,7 +75,7 @@ export const registerValidator = validate(
 export const loginValidator = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body
   if (!email || !password) {
-    return res.status(400).json({
+    return res.status(HttpStatusCode.BAD_REQUEST).json({
       error: 'Missing email or password'
     })
   }

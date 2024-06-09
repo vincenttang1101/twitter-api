@@ -18,14 +18,13 @@ export class UsersController {
     })
   }
 
-  register(req: Request<ParamsDictionary, any, RegisterReqBody>, res: Response, next: NextFunction) {
-    throw new Error('lỗi rồi')
-    // const user = await usersService.register(req.body)
+  async register(req: Request<ParamsDictionary, any, RegisterReqBody>, res: Response, next: NextFunction) {
+    const user = await usersService.register(req.body)
 
-    // return res.status(200).json({
-    //   data: user,
-    //   success: true
-    // })
+    return res.status(200).json({
+      data: user,
+      success: true
+    })
   }
 }
 

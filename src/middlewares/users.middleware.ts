@@ -26,7 +26,7 @@ export const registerValidator = validate(
         options: async (value) => {
           const isEmailExists = await usersServices.checkEmailExists(value)
           if (isEmailExists) {
-            throw new ErrorWithStatus({ message: 'Email already exists', status: HttpStatusCode.BAD_REQUEST })
+            throw new ErrorWithStatus({ message: 'Email already exists', status: HttpStatusCode.UNPROCESSABLE_ENTITY })
           }
           return isEmailExists
         }

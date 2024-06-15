@@ -5,7 +5,7 @@ import { Router } from 'express'
 
 const usersRouter = Router()
 
-usersRouter.post('/login', loginValidator, usersController.login)
+usersRouter.post('/login', loginValidator, wrapRequestHandler(usersController.login))
 
 usersRouter.post('/register', registerValidator, wrapRequestHandler(usersController.register))
 

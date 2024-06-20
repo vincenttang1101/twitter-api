@@ -4,10 +4,19 @@ import { UserMessage } from '@/utils/constants/message'
 type ErrorType = Record<
   string,
   {
+    type: string
     msg: string
     [key: string]: any
   }
 >
+
+// type ErrorType = {
+//   [key: string]: {
+//     type: string
+//     msg: string
+//     [key: string]: any
+//   }
+// }
 
 export class ErrorWithStatus {
   message: string

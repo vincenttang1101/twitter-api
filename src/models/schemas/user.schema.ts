@@ -1,8 +1,26 @@
 import { UserVerifyStatus } from '@/utils/constants/user'
-import { hash } from 'bcrypt'
-import { Schema, model, set } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
+import bcrypt from 'bcrypt'
 
-const userSchema = new Schema(
+export interface UserDocument extends Document {
+  name: string
+  email: string
+  date_of_birth?: Date
+  password: string
+  email_verify_token?: string
+  forgot_password_token?: string
+  verify: UserVerifyStatus
+  bio?: string
+  location?: string
+  website?: string
+  username?: string
+  avatar?: string
+  cover_photo?: string
+  created_at?: Date
+  updated_at?: Date
+}
+
+const userSchema = new Schema<UserDocument>(
   {
     name: {
       type: String,
@@ -44,14 +62,18 @@ const userSchema = new Schema(
   }
 )
 
-userSchema.pre('save', async function (next) {
+userSchema.pre<UserDocument>('save', async function (next) {
   if (this.isModified('password')) {
-    const hashedPassword = await hash(this.password + process.env.PASSWORD_HASH_SECRET, 2)
+    const hashedPassword = await bcrypt.hash(this.password, Number(process!.env!.SALT_ROUNDS))
     this.password = hashedPassword
   }
   next()
 })
 
-const User = model('User', userSchema)
+userSchema.methods.comparePassword = async function (plainPassword: string) {
+  return await bcrypt.compare(plainPassword, this.password)
+}
+
+const User = model<UserDocument>('User', userSchema)
 
 export default User

@@ -1,7 +1,7 @@
 import express from 'express'
 import router from '@/routes'
 import databaseService from '@/services/database.service'
-import { errorHandler } from '@/middlewares/error.middleware'
+import { defaultErrorHandler } from '@/middlewares/errors.middleware'
 
 databaseService.connect()
 
@@ -11,7 +11,7 @@ const port = 3001
 
 app.use(express.json())
 app.use(router)
-app.use(errorHandler)
+app.use(defaultErrorHandler)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -1,4 +1,4 @@
-import mongoose, { Collection } from 'mongoose'
+import mongoose from 'mongoose'
 import 'dotenv/config'
 import dotenv from 'dotenv'
 import User from '@/models/schemas/user.schema'

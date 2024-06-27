@@ -3,7 +3,7 @@ import { DatabaseServices } from '@/services/database.service'
 import { RegisterReqBody } from '@/types/users.type'
 import { TokenType } from '@/utils/constants/token'
 import { signToken } from '@/utils/helpers/jwt'
-import { FilterQuery } from 'mongoose'
+import { FilterQuery, Types } from 'mongoose'
 
 class UsersService extends DatabaseServices {
   private async signAccessToken(user_id: string) {
@@ -45,11 +45,21 @@ class UsersService extends DatabaseServices {
     const user_id = String(user._id)
     const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id)
 
+    await this.RefreshTokens.create({
+      user_id,
+      token: refresh_token
+    })
     return { ...user.toObject(), access_token, refresh_token }
   }
 
   async login(user_id: string) {
     const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id)
+
+    await this.RefreshTokens.create({
+      user_id,
+      token: refresh_token
+    })
+
     return {
       access_token,
       refresh_token

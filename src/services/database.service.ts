@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import 'dotenv/config'
 import dotenv from 'dotenv'
 import User from '@/models/schemas/user.schema'
+import RefreshToken from '@/models/schemas/refresh-token.schema'
 
 const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
 dotenv.config({ path: envFile })
@@ -21,6 +22,10 @@ export class DatabaseServices {
 
   get users() {
     return User
+  }
+
+  get RefreshTokens() {
+    return RefreshToken
   }
 }
 

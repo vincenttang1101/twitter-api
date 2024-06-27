@@ -17,5 +17,7 @@ export enum UserMessage {
   CONFIRM_PASSWORD_LENGTH_MUST_BE_FROM_6_TO_50 = 'Confirm password length must be from 6 to 50',
   CONFIRM_PASSWORD_MUST_BE_STRONG = 'Confirm password must be 6-50 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol',
   CONFIRM_PASSWORD_MUST_BE_THE_SAME_PASSWORD = 'Confirm password must be the same password',
-  DATE_OF_BIRTH_MUST_BE_ISO8601 = 'Date of birth must be ISO8601'
+  DATE_OF_BIRTH_MUST_BE_ISO8601 = 'Date of birth must be ISO8601',
+  ACCESS_TOKEN_IS_REQUIRED = 'Access token is required',
+  LOGOUT_SUCCESSFULLY = 'Logout successfully'
 }

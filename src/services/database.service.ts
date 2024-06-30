@@ -24,7 +24,7 @@ export class DatabaseServices {
     return User
   }
 
-  get RefreshTokens() {
+  get refreshTokens() {
     return RefreshToken
   }
 }

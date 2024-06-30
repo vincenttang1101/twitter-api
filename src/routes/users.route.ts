@@ -1,5 +1,10 @@
 import usersController from '@/controllers/users.controller'
-import { accessTokenValidator, loginValidator, registerValidator } from '@/middlewares/users.middleware'
+import {
+  accessTokenValidator,
+  loginValidator,
+  refreshTokenValidator,
+  registerValidator
+} from '@/middlewares/users.middleware'
 import { UserMessage } from '@/utils/constants/message'
 import { wrapRequestHandler } from '@/utils/helpers/handlers'
 import { Router } from 'express'
@@ -11,6 +16,7 @@ usersRouter.post('/login', loginValidator, wrapRequestHandler(usersController.lo
 usersRouter.post(
   '/logout',
   accessTokenValidator,
+  refreshTokenValidator,
   wrapRequestHandler((req, res) => {
     res.json({
       message: UserMessage.LOGOUT_SUCCESSFULLY

@@ -45,7 +45,7 @@ class UsersService extends DatabaseServices {
     const user_id = String(user._id)
     const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id)
 
-    await this.RefreshTokens.create({
+    await this.refreshTokens.create({
       user_id,
       token: refresh_token
     })
@@ -55,7 +55,7 @@ class UsersService extends DatabaseServices {
   async login(user_id: string) {
     const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id)
 
-    await this.RefreshTokens.create({
+    await this.refreshTokens.create({
       user_id,
       token: refresh_token
     })

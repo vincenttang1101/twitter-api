@@ -19,5 +19,9 @@ export enum UserMessage {
   CONFIRM_PASSWORD_MUST_BE_THE_SAME_PASSWORD = 'Confirm password must be the same password',
   DATE_OF_BIRTH_MUST_BE_ISO8601 = 'Date of birth must be ISO8601',
   ACCESS_TOKEN_IS_REQUIRED = 'Access token is required',
-  LOGOUT_SUCCESSFULLY = 'Logout successfully'
+  LOGOUT_SUCCESSFULLY = 'Logout successfully',
+  REFRESH_TOKEN_IS_REQUIRED = 'Refresh token is required',
+  REFRESH_TOKEN_MUST_BE_A_STRING = 'Refresh token must be a string',
+  REFRESH_TOKEN_IS_INVALID = 'Refresh token is invalid',
+  USED_REFRESH_TOKEN_OR_NOT_EXIST = 'Used refresh token or not exist'
 }

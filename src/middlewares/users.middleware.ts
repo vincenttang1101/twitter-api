@@ -6,6 +6,7 @@ import { ErrorWithStatus } from '@/utils/helpers/errors'
 import { validate } from '@/utils/helpers/validations'
 import { checkSchema } from 'express-validator'
 import { verifyToken } from '@/utils/helpers/jwt'
+import User from '@/models/schemas/user.schema'
 
 export const registerValidator = validate(
   checkSchema(
@@ -187,5 +188,45 @@ export const accessTokenValidator = validate(
       }
     },
     ['headers']
+  )
+)
+
+export const refreshTokenValidator = validate(
+  checkSchema(
+    {
+      refresh_token: {
+        notEmpty: {
+          errorMessage: UserMessage.REFRESH_TOKEN_IS_REQUIRED
+        },
+        custom: {
+          options: async (value: string, { req }) => {
+            console.log('3', value)
+            const [decoded_refresh_token, refresh_token] = await Promise.all([
+              verifyToken({ token: value }),
+              databaseServices.refreshTokens.findOne({ token: value })
+            ])
+
+            console.log(value)
+
+            if (!decoded_refresh_token) {
+              throw new ErrorWithStatus({
+                message: UserMessage.REFRESH_TOKEN_IS_INVALID,
+                status: HttpStatusCode.UNAUTHORIZED
+              })
+            }
+
+            if (!refresh_token) {
+              throw new ErrorWithStatus({
+                message: UserMessage.USED_REFRESH_TOKEN_OR_NOT_EXIST,
+                status: HttpStatusCode.UNAUTHORIZED
+              })
+            }
+            req.decoded_refresh_token = decoded_refresh_token
+            return true
+          }
+        }
+      }
+    },
+    ['body']
   )
 )
